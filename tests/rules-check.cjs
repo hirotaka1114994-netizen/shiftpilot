@@ -64,8 +64,8 @@ function checkSchedule({ staff, D, cells, wishes = [], conditions = {} }) {
     if (j >= 1 && night.length < 3) v.push(`${d}日：新人が夜勤に入るのに夜勤${night.length}名（3名必要）`);
   }
 
-  // 9. 希望休は休のまま
-  for (const w of wishes) if (at(w.s, w.d) !== '休') v.push(`${w.d}日 ${name(w.s)}：希望休なのに「${at(w.s, w.d)}」`);
+  // 9. 希望（休み・日勤・夜勤）どおり。t を省略したものは休み希望
+  for (const w of wishes) { const t = w.t || '休'; if (at(w.s, w.d) !== t) v.push(`${w.d}日 ${name(w.s)}：希望「${t}」なのに「${at(w.s, w.d)}」`); }
 
   return v;
 }

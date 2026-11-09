@@ -1,12 +1,13 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ShiftPilot | AI勤務表デモ</title><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;color:#17253c;background:#f3f6fb}*{box-sizing:border-box}body{margin:0}.app{max-width:1500px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.brand{font-size:26px;font-weight:850;letter-spacing:-1px}.brand span{color:#3175df}.muted{color:#738198;font-size:13px}.pill{background:#e8f2ff;color:#2462b9;border-radius:30px;padding:7px 11px;font-size:12px;font-weight:700}.hero{margin-top:20px;background:linear-gradient(120deg,#122e57,#2365b8);color:white;border-radius:22px;padding:25px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.hero h1{font-size:25px;margin:0 0 8px}.hero p{margin:0;color:#d9e9ff;font-size:14px}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}button,select,input{font:inherit}button{border:0;border-radius:10px;padding:10px 13px;background:#fff;color:#1e3b65;cursor:pointer;font-weight:700}button.primary{background:#377ef0;color:white}button.dark{background:#163a70;color:white}button.ghost{background:#eaf1fa}button:disabled{opacity:.5;cursor:not-allowed}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:18px 0}.stat,.panel{background:white;border:1px solid #e3e9f2;border-radius:16px;padding:17px}.stat b{font-size:26px;display:block;margin-top:8px}.stat small{color:#728099}.layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:15px}.panel h2{font-size:16px;margin:0 0 13px}.tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}.tools select{border:1px solid #dbe4f0;border-radius:8px;padding:8px;background:white}.tablewrap{overflow:auto;border:1px solid #e4eaf3;border-radius:12px}.schedule{border-collapse:separate;border-spacing:0;min-width:1000px;width:100%;font-size:12px}.schedule th,.schedule td{border-right:1px solid #e6ebf3;border-bottom:1px solid #e6ebf3;text-align:center;padding:0;min-width:35px;height:35px}.schedule th{background:#f6f8fc;font-weight:700;height:39px}.schedule th:first-child,.schedule td:first-child{position:sticky;left:0;z-index:2;min-width:112px;text-align:left;padding:0 10px;background:white;font-weight:700}.schedule thead th:first-child{z-index:3;background:#edf3fb}.schedule .sat{color:#3175df;background:#eff5ff}.schedule .sun{color:#e06b78;background:#fff2f4}.schedule td button{padding:0;width:100%;height:35px;border-radius:0;background:transparent;font-size:12px}.schedule td button:hover{outline:2px solid #4785ed;outline-offset:-2px}.d{background:#e9f5ef!important;color:#24835a!important}.n{background:#e8edff!important;color:#475bc5!important}.a{background:#f0eaff!important;color:#8854b7!important}.o{background:#f7f8fa!important;color:#a0a8b5!important}.p{background:#fff0dc!important;color:#b87724!important}.wish{box-shadow:inset 0 -3px #e9a53b}.invalid{box-shadow:inset 0 0 0 2px #e45c6a}.side{display:flex;flex-direction:column;gap:14px}.hint{font-size:12px;line-height:1.6;color:#66758d}.issue{background:#fff6f1;border:1px solid #ffe2d0;padding:10px;border-radius:10px;font-size:12px;margin-bottom:8px}.issue strong{color:#a6502e}.good{background:#edf8f1;color:#27774b;padding:12px;border-radius:10px;font-size:13px}.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.legend span{font-size:11px;padding:5px 9px;border-radius:7px}.formline{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.formline label{font-size:12px;color:#697992}.formline select,.formline input{width:100%;padding:9px;border:1px solid #dce4ee;border-radius:9px;background:white;margin-top:4px}.notice{margin-top:12px;color:#718198;font-size:12px;line-height:1.6}.tag{font-size:10px;color:#8493a8}.section{margin-top:15px}.footer{padding:25px 0;text-align:center;color:#7d8ca0;font-size:12px}details summary{cursor:pointer;font-size:13px;font-weight:700;color:#1e3b65;padding:4px 0}.ntrow{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;padding:6px 0;border-bottom:1px solid #edf0f5}.ntrow select{width:110px;padding:7px;border:1px solid #dce4ee;border-radius:9px;background:white}dialog{border:0;border-radius:16px;padding:24px;max-width:420px;width:90%;box-shadow:0 20px 70px #132b4b40}dialog::backdrop{background:#142f5077}dialog h3{margin:0 0 8px}dialog button{background:#edf2f9}dialog .primary{background:#377ef0;color:white}.hidden{display:none!important}@media(max-width:950px){.layout{grid-template-columns:minmax(0,1fr)}.side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.app{padding:12px}.hero{padding:19px}.hero h1{font-size:21px}.stat{padding:12px}.stat b{font-size:23px}.side{display:flex}.brand{font-size:22px}.panel{padding:12px}}
-</style></head><body><div class="app"><div class="top"><div><div class="brand">Shift<span>Pilot</span> <span class="pill">PROTOTYPE 0.2</span></div><div class="muted">医療現場のためのスマート勤務表｜架空データによる体験版</div></div><div class="actions"><span class="pill">● ローカルデモ</span><button class="ghost" id="reset">初期化</button></div></div><section class="hero"><div><h1>条件を満たす勤務表を、ボタン一つで。</h1><p>14名の架空スタッフで、人数・資格・公休日数・夜勤回数の条件を満たす勤務表を自動作成し、編集・検証できます。</p></div><div class="actions"><button id="generate">✦ 自動作成</button><button id="csv">CSVを書き出す</button></div></section><section class="stats"><div class="stat"><small>対象スタッフ</small><b>14 <span style="font-size:13px">名</span></b></div><div class="stat"><small>対象月</small><b id="monthStat">—</b></div><div class="stat"><small>検出された注意点</small><b id="issueStat">—</b></div><div class="stat"><small>希望休登録</small><b id="wishStat">—</b></div></section><div class="layout"><main><section class="panel"><div class="tools"><div><h2>月間勤務表</h2><div class="muted">マスをタップすると勤務区分を編集できます</div></div><div class="actions"><button id="prev">‹</button><strong id="monthTitle"></strong><button id="next">›</button></div></div><div class="tablewrap"><table class="schedule" id="schedule"></table></div><div class="legend"><span class="d">日 日勤</span><span class="n">△ 夜勤入り</span><span class="a">× 夜勤明け</span><span class="o">休 公休</span><span class="p">有 有休</span><span style="background:#fff3dd">下線：希望休</span></div><p class="notice">横スクロールで月全体を確認できます。夜勤明けは自動的に「×」になります。保存はこの端末のブラウザ内のみです。</p></section><section class="panel section"><h2>シフト配置の検証結果</h2><div id="issues"></div></section></main><aside class="side"><section class="panel"><h2>作成条件</h2><div class="hint">自動作成で必ず守る条件です。公休日数は月ごとに入力してください（希望休も公休に含みます）。</div><div class="formline"><label>この月の公休日数<input id="offDays" type="number" inputmode="numeric" min="0" max="31" placeholder="未入力"></label><label>日勤の最低人数<select id="dayMin"></select></label><label>夜勤の最低人数<select id="nightMin"></select></label><label>夜勤の上限人数<select id="nightMax"></select></label></div><details class="section"><summary>個人ごとの夜勤回数（任意）</summary><div class="hint">指定した人は、その回数ちょうどになります。「指定なし」の人は回数が偏らないよう自動で調整します。</div><div id="nightTargets"></div></details></section><section class="panel"><h2>希望休を登録</h2><div class="hint">登録した希望休は再生成時も維持されます。</div><div class="formline"><label>スタッフ<select id="wishStaff"></select></label><label>希望日<select id="wishDay"></select></label></div><button class="dark" id="addWish">希望休を登録</button><div class="section" id="wishList"></div></section><section class="panel"><h2>スキル配置のルール</h2><div class="hint">デモ用の設定です。リーダーとドライバーの資格を持つスタッフを考慮して、日勤・夜勤の不足をチェックします。</div><div class="section" id="staffList"></div></section><section class="panel"><h2>この試作品の範囲</h2><div class="hint">✓ 月間勤務表の表示・編集<br>✓ 夜勤明けの自動入力<br>✓ 希望休の登録・保護<br>✓ 必要人数と資格のチェック<br>✓ CSV出力・端末内保存<br>✓ 条件を満たす勤務表の自動作成（希望休を維持）<br>✓ 作成条件の設定（公休日数・最低人数・個人の夜勤回数）<br><br>未実装：前月・翌月の引き継ぎ、連続勤務の上限などの労務条件、ログイン、承認、通知、複数人同時利用、Excel/PDF出力、院内ネットワーク制御。</div></section></aside></div><div class="footer">ShiftPilot — 架空データによる試作。前月・翌月境界、労務規定、個別制限は未検証。実勤務には使用しないでください。</div></div><dialog id="editor"><h3 id="editTitle">勤務を変更</h3><p class="hint" id="editDesc"></p><div class="actions" style="margin-top:16px"><button data-code="日" class="d">日勤</button><button data-code="△" class="n">夜勤</button><button data-code="休" class="o">公休</button><button data-code="有" class="p">有休</button></div><p class="hint" style="margin-top:14px">希望休のセルは変更できません。変更が必要な場合は先に希望休登録を解除してください。</p><div style="text-align:right;margin-top:18px"><button id="close">閉じる</button></div></dialog><script>
+</style></head><body><div class="app"><div class="top"><div><div class="brand">Shift<span>Pilot</span> <span class="pill">PROTOTYPE 0.2</span></div><div class="muted">医療現場のためのスマート勤務表｜架空データによる体験版</div></div><div class="actions"><span class="pill">● ローカルデモ</span><button class="ghost" id="reset">初期化</button></div></div><section class="hero"><div><h1>条件を満たす勤務表を、ボタン一つで。</h1><p>14名の架空スタッフで、人数・資格・公休日数・夜勤回数の条件を満たす勤務表を自動作成し、編集・検証できます。</p></div><div class="actions"><button id="generate">✦ 自動作成</button><button id="csv">CSVを書き出す</button></div></section><section class="stats"><div class="stat"><small>対象スタッフ</small><b>14 <span style="font-size:13px">名</span></b></div><div class="stat"><small>対象月</small><b id="monthStat">—</b></div><div class="stat"><small>検出された注意点</small><b id="issueStat">—</b></div><div class="stat"><small>希望の登録</small><b id="wishStat">—</b></div></section><div class="layout"><main><section class="panel"><div class="tools"><div><h2>月間勤務表</h2><div class="muted">マスをタップすると勤務区分を編集できます</div></div><div class="actions"><button id="prev">‹</button><strong id="monthTitle"></strong><button id="next">›</button></div></div><div class="tablewrap"><table class="schedule" id="schedule"></table></div><div class="legend"><span class="d">日 日勤</span><span class="n">△ 夜勤入り</span><span class="a">× 夜勤明け</span><span class="o">休 公休</span><span class="p">有 有休</span><span style="background:#fff3dd">下線：希望（休み・日勤・夜勤）</span></div><p class="notice">横スクロールで月全体を確認できます。夜勤明けは自動的に「×」になります。保存はこの端末のブラウザ内のみです。</p></section><section class="panel section"><h2>シフト配置の検証結果</h2><div id="issues"></div></section></main><aside class="side"><section class="panel"><h2>作成条件</h2><div class="hint">自動作成で必ず守る条件です。公休日数は月ごとに入力してください（休み希望も公休に含みます）。</div><div class="formline"><label>この月の公休日数<input id="offDays" type="number" inputmode="numeric" min="0" max="31" placeholder="未入力"></label><label>日勤の最低人数<select id="dayMin"></select></label><label>夜勤の最低人数<select id="nightMin"></select></label><label>夜勤の上限人数<select id="nightMax"></select></label></div><details class="section"><summary>個人ごとの夜勤回数（任意）</summary><div class="hint">指定した人は、その回数ちょうどになります。「指定なし」の人は回数が偏らないよう自動で調整します。</div><div id="nightTargets"></div></details></section><section class="panel"><h2>希望を登録（休み・勤務）</h2><div class="hint">勤務表のマスをタップしても登録できます。登録した希望は、自動作成で必ず守ります。</div><div class="formline"><label>スタッフ<select id="wishStaff"></select></label><label>希望日<select id="wishDay"></select></label><label>希望の種類<select id="wishType"><option value="休">休み希望</option><option value="日">日勤希望</option><option value="△">夜勤希望</option></select></label></div><button class="dark" id="addWish">希望を登録</button><div class="section" id="wishList"></div></section><section class="panel"><h2>スキル配置のルール</h2><div class="hint">デモ用の設定です。リーダーとドライバーの資格を持つスタッフを考慮して、日勤・夜勤の不足をチェックします。</div><div class="section" id="staffList"></div></section><section class="panel"><h2>この試作品の範囲</h2><div class="hint">✓ 月間勤務表の表示・編集<br>✓ 夜勤明けの自動入力<br>✓ 希望（休み・日勤・夜勤）の登録・保護<br>✓ 必要人数と資格のチェック<br>✓ CSV出力・端末内保存<br>✓ 条件を満たす勤務表の自動作成（希望を維持）<br>✓ 作成条件の設定（公休日数・最低人数・個人の夜勤回数）<br><br>未実装：前月・翌月の引き継ぎ、連続勤務の上限などの労務条件、ログイン、承認、通知、複数人同時利用、Excel/PDF出力、院内ネットワーク制御。</div></section></aside></div><div class="footer">ShiftPilot — 架空データによる試作。前月・翌月境界、労務規定、個別制限は未検証。実勤務には使用しないでください。</div></div><dialog id="editor"><h3 id="editTitle">勤務を変更</h3><p class="hint" id="editDesc"></p><div class="actions" style="margin-top:16px"><button data-code="日" class="d">日勤</button><button data-code="△" class="n">夜勤</button><button data-code="休" class="o">公休</button><button data-code="有" class="p">有休</button></div><p class="hint" style="margin-top:16px"><b>希望を登録</b>（自動作成で必ず守ります）</p><div class="actions"><button data-req="休" class="o">休み希望</button><button data-req="日" class="d">日勤希望</button><button data-req="△" class="n">夜勤希望</button><button id="clearReq">希望を解除</button></div><p class="hint" style="margin-top:10px">希望が登録されたマスは、先に「希望を解除」しないと勤務を変更できません。</p><div style="text-align:right;margin-top:18px"><button id="close">閉じる</button></div></dialog><script>
 // 勤務表の自動作成（条件を満たす案を探索する）
 // 必須条件：validate()（検証）と同じ。条件を緩めない。
+//   ・希望（休み・日勤・夜勤）は必ず守る
 //   ・作成条件（作成者が指定）：日勤の最低人数／夜勤の最低人数・上限／この月の公休日数（全員ちょうど。希望休を含む）／個人ごとの夜勤回数（指定した人はちょうど）
 //   ・資格：日勤は運転可2名以上・リーダー1名以上、夜勤はリーダー・運転可各1名以上、新人が夜勤の日は3名以上・新人は1名まで
 //   ・並び：夜勤の翌日は明け、明けの翌日は日勤不可、連続夜勤（明け→夜勤）は1人月1回まで、3回連続夜勤不可、4連続日勤の直後の夜勤不可
-//   ・希望休は休（その前日は夜勤にしない）、日勤専従は夜勤なし
+//   ・休み希望の前日は夜勤にしない（明けにならないように）、日勤専従は夜勤なし
 // 目安（必須ではない）：夜勤回数の偏りを減らす、連続夜勤の後は2日休む、長い連続勤務を避ける
 // 結果の正しさは、この関数とは別に validate() とテスト（tests/rules-check.cjs）で検証する。
 function autoGenerate(opt) {
@@ -18,8 +19,12 @@ function autoGenerate(opt) {
   const NT = staff.map((_, s) => (C.nightTargets && C.nightTargets[s] != null && C.nightTargets[s] !== '') ? +C.nightTargets[s] : null);
   let rnd = (seed >>> 0) || 1;
   const rand = () => ((rnd = (rnd * 1664525 + 1013904223) >>> 0) / 4294967296);
-  const wish = new Set(wishes.map(w => `${w.s}-${w.d}`));
+  // 希望：t が '休'（または未指定）＝休み希望、'日'＝日勤希望、'△'＝夜勤希望。すべて必ず守る
+  const reqSet = t => new Set(wishes.filter(w => (w.t || '休') === t).map(w => `${w.s}-${w.d}`));
+  const wish = reqSet('休'), dayReq = reqSet('日'), nightReq = reqSet('△');
   const isWish = (s, d) => wish.has(`${s}-${d}`);
+  const isDayReq = (s, d) => dayReq.has(`${s}-${d}`), isNightReq = (s, d) => nightReq.has(`${s}-${d}`);
+  const hasReq = (s, d) => isWish(s, d) || isDayReq(s, d) || isNightReq(s, d);
   const ids = staff.map((_, s) => s);
   const cnt = (a, f) => a.filter(s => staff[s][f]).length;
 
@@ -31,14 +36,32 @@ function autoGenerate(opt) {
     if (R.nightMin > R.nightMax) add(null, `夜勤の最低人数${R.nightMin}名が、夜勤の上限${R.nightMax}名を超えています`);
     if (out.length) return out;
     for (const s of ids) {
-      const w = wishes.filter(x => x.s === s).length;
-      if (w > OFF) add(null, `${staff[s].name}：希望休${w}日が、公休日数${OFF}日を超えています`);
+      const w = wishes.filter(x => x.s === s && (x.t || '休') === '休').length;
+      if (w > OFF) add(null, `${staff[s].name}：休み希望${w}日が、公休日数${OFF}日を超えています`);
       const t = NT[s];
       if (t == null) continue;
       if (staff[s].dayOnly && t > 0) add(null, `${staff[s].name}：日勤専従ですが、夜勤${t}回が指定されています`);
       if (staff[s].junior && t > 0 && R.nightMax < R.nightWithJunior) add(null, `${staff[s].name}：新人の夜勤は3名体制が必要ですが、夜勤の上限が${R.nightMax}名です`);
       // 夜勤1回＝入り＋明けの2日分。月末日の夜勤だけは明けが翌月になる
       if (t * 2 - 1 > D - OFF) add(null, `${staff[s].name}：夜勤${t}回（${t * 2}日分の勤務）が、勤務できる日数${D - OFF}日に収まりません`);
+    }
+    // 勤務の希望どうしの衝突
+    for (const w of wishes) {
+      const t = w.t || '休', nm = staff[w.s].name;
+      if (t === '△') {
+        if (staff[w.s].dayOnly) add(w.d, `${nm}：日勤専従ですが夜勤希望があります`);
+        if (w.d < D && hasReq(w.s, w.d + 1)) add(w.d, `${nm}：夜勤希望の翌日（${w.d + 1}日）は明けになるため、翌日の希望と両立しません`);
+        if (w.d + 2 <= D && isDayReq(w.s, w.d + 2)) add(w.d, `${nm}：夜勤希望の2日後（${w.d + 2}日）は明けの翌日のため、日勤希望と両立しません`);
+      }
+    }
+    for (const s of ids) {
+      const nr = wishes.filter(x => x.s === s && x.t === '△').length;
+      if (NT[s] != null && nr > NT[s]) add(null, `${staff[s].name}：夜勤希望${nr}回が、指定した夜勤回数${NT[s]}回を超えています`);
+    }
+    for (let d = 1; d <= D; d++) {
+      const nr = ids.filter(s => isNightReq(s, d));
+      if (nr.length > R.nightMax) add(d, `夜勤希望が${nr.length}名で、夜勤の上限${R.nightMax}名を超えています`);
+      if (cnt(nr, 'junior') > R.juniorMax) add(d, '新人の夜勤希望が2名以上あります（新人は1夜勤に1名まで）');
     }
     const jt = ids.filter(s => staff[s].junior && NT[s] > 0).reduce((a, s) => a + NT[s], 0);
     if (jt > D) add(null, `新人の夜勤回数の合計${jt}回が、月の日数${D}日を超えています（新人は1夜勤に1名まで）`);
@@ -52,14 +75,14 @@ function autoGenerate(opt) {
     if (capacity < need) add(null, `勤務できる延べ日数${capacity}日（${N}名×${D - OFF}日）が、最低人数に必要な延べ${need}日（日勤${R.dayMin}＋夜勤${R.nightMin}＋明け${R.nightMin}、毎日）に${need - capacity}日足りません。公休日数を減らすか最低人数を見直してください`);
     // 日ごとの候補者
     for (let d = 1; d <= D; d++) {
-      const n = ids.filter(s => !staff[s].dayOnly && NT[s] !== 0 && !isWish(s, d) && !(d < D && isWish(s, d + 1)));
-      const note = '（当日か翌日が希望休の人は夜勤に入れない。夜勤の翌日は明けになるため）';
+      const n = ids.filter(s => !staff[s].dayOnly && NT[s] !== 0 && !isWish(s, d) && !isDayReq(s, d) && !(d < D && hasReq(s, d + 1)));
+      const note = '（当日か翌日に希望がある人は夜勤に入れない。夜勤の翌日は明けになるため）';
       if (n.length < R.nightMin) add(d, `夜勤に入れる人が${n.length}名（必要${R.nightMin}名）${note}`);
       else {
         if (!cnt(n, 'leader')) add(d, '夜勤に入れるリーダーが0名' + note);
         if (!cnt(n, 'driver')) add(d, '夜勤に入れる運転可の職員が0名' + note);
       }
-      const dayPool = ids.filter(s => !isWish(s, d));
+      const dayPool = ids.filter(s => !isWish(s, d) && !isNightReq(s, d));
       if (dayPool.length < R.dayMin) add(d, `日勤に入れる人が${dayPool.length}名（必要${R.dayMin}名）`);
       if (cnt(dayPool, 'driver') < R.dayDriver) add(d, `日勤に入れる運転可が${cnt(dayPool, 'driver')}名（必要${R.dayDriver}名）`);
       if (!cnt(dayPool, 'leader')) add(d, '日勤に入れるリーダーが0名');
@@ -88,16 +111,20 @@ function autoGenerate(opt) {
     || d > 5 && grid[s][d - 1] === '休' && grid[s][d - 2] === '×' && grid[s][d - 3] === '△' && grid[s][d - 4] === '×' && grid[s][d - 5] === '△';
 
   const canNight = (s, d) => {
-    if (staff[s].dayOnly || isWish(s, d)) return false;
-    if (d < D && isWish(s, d + 1)) return false;
+    if (staff[s].dayOnly || isWish(s, d) || isDayReq(s, d)) return false;
+    if (d < D && hasReq(s, d + 1)) return false;                                         // 翌日は明けになる
+    if (d + 2 <= D && isDayReq(s, d + 2)) return false;                                   // 明けの翌日は日勤不可
     if (d > 1 && grid[s][d - 1] === '△') return false;
-    if (NT[s] != null && nights[s] >= NT[s]) return false;
+    if (NT[s] != null && !isNightReq(s, d)) {                                           // 指定回数のうち、この先の夜勤希望の分は残しておく
+      let reqAhead = 0; for (let x = d + 1; x <= D; x++) if (isNightReq(s, x)) reqAhead++;
+      if (nights[s] + reqAhead >= NT[s]) return false;
+    }
     if (d > 2 && grid[s][d - 2] === '△' && consec[s] >= R.consecMax) return false;      // 連続夜勤は月1回まで
     if (d > 4 && grid[s][d - 2] === '△' && grid[s][d - 4] === '△') return false;        // 3回連続夜勤
     if (d > 4 && [1, 2, 3, 4].every(n => grid[s][d - n] === '日')) return false;        // 4連続日勤の直後
     if (offLeft(s) > D - d - (d < D ? 1 : 0)) return false;                            // 入り＋明けで休みが足りなくなる
     // 明けの翌日（d+2日）は「休み」か「連続夜勤」しか入れない。連続夜勤を使えない場合は、休みを1日残しておく必要がある
-    if (d + 2 <= D && !isWish(s, d + 2)) {
+    if (d + 2 <= D && !isWish(s, d + 2) && !isNightReq(s, d + 2)) {
       const consecUsed = consec[s] + (d > 2 && grid[s][d - 2] === '△' ? 1 : 0);
       const canConsecAfter = consecUsed < R.consecMax && !(d > 2 && grid[s][d - 2] === '△') && (NT[s] == null || NT[s] - nights[s] >= 2) && !isWish(s, d + 3);
       let wishAfter = 0; for (let x = d + 2; x <= D; x++) if (isWish(s, x)) wishAfter++;
@@ -105,7 +132,7 @@ function autoGenerate(opt) {
     }
     return true;
   };
-  const canDay = (s, d) => !isWish(s, d) && !(d > 1 && (grid[s][d - 1] === '△' || grid[s][d - 1] === '×'));
+  const canDay = (s, d) => !isWish(s, d) && !isNightReq(s, d) && !(d > 1 && (grid[s][d - 1] === '△' || grid[s][d - 1] === '×'));
   const nightOk = set => {
     const j = cnt(set, 'junior');
     return set.some(s => staff[s].leader) && set.some(s => staff[s].driver) && j <= R.juniorMax && (j === 0 || set.length >= R.nightWithJunior);
@@ -120,8 +147,10 @@ function autoGenerate(opt) {
   function options(d) {
     const forcedAke = ids.filter(s => d > 1 && grid[s][d - 1] === '△');
     const nc = ids.filter(s => !forcedAke.includes(s) && canNight(s, d));
+    const required = ids.filter(s => isNightReq(s, d));
+    if (!required.every(s => nc.includes(s))) return [];
     const sets = [];
-    for (let k = R.nightMin; k <= R.nightMax; k++) for (const c of combos(nc, k)) if (nightOk(c)) {
+    for (let k = R.nightMin; k <= R.nightMax; k++) for (const c of combos(nc, k)) if (nightOk(c) && required.every(s => c.includes(s))) {
       let sc = 0;
       for (const s of c) sc -= nightNeed(s, d);
       // 指定回数が残っているのに選ばれなかった人がいると、後で入れにくくなる
@@ -144,6 +173,7 @@ function autoGenerate(opt) {
     const left = daysLeftFrom(d);
     for (const s of free) {
       if (isWish(s, d)) { rest.push(s); continue }
+      if (isDayReq(s, d)) { if (!canDay(s, d)) return null; work.push(s); continue }
       const o = offLeft(s);
       // 今日以降の日数のうち、勤務に使える日数（希望休の日は勤務できない）
       let wishAhead = 0; for (let x = d; x <= D; x++) if (isWish(s, x)) wishAhead++;
@@ -264,7 +294,13 @@ const settings=(()=>{const def={dayMin:4,nightMin:2,nightMax:3};try{return {...d
 const save=()=>localStorage.setItem(key(),JSON.stringify(state));
 function seed(keep){state={cells:{},wishes:[],offDays:keep?state.offDays:null,nightTargets:keep?state.nightTargets:{}};const D=days();for(let s=0;s<14;s++){for(let d=1;d<=D;d++){const p=(d+s*2)%7;state.cells[dateKey(s,d)]=staff[s].dayOnly?(p<5?'日':'休'):(p===0?'△':p===1?'×':p<4?'休':'日');}}save()}
 function load(){const old=getStore();if(old&&old.cells){state={offDays:null,nightTargets:{},...old}}else seed(false);render()}
-function setCell(s,d,v){if(state.wishes.some(w=>w.s===s&&w.d===d))return alert('希望休として登録されています。先に希望休を解除してください。');if(v==='△'&&staff[s].dayOnly)return alert('日勤専従のスタッフには夜勤を設定できません。');if(state.cells[dateKey(s,d)]==='×'&&d>1&&state.cells[dateKey(s,d-1)]==='△'){state.cells[dateKey(s,d-1)]='休'}if(state.cells[dateKey(s,d)]==='△'&&d<days())state.cells[dateKey(s,d+1)]='休';state.cells[dateKey(s,d)]=v;if(v==='△'&&d<days())state.cells[dateKey(s,d+1)]='×';if(d>1&&state.cells[dateKey(s,d-1)]==='△'&&v!=='×')state.cells[dateKey(s,d-1)]='休';save();render()}
+const reqLabel={'休':'休み希望','日':'日勤希望','△':'夜勤希望'};const reqType=w=>w.t||'休';const reqOf=(s,d)=>state.wishes.find(w=>w.s===s&&w.d===d);
+function applyRequest(s,d,t){
+ if(t==='△'&&staff[s].dayOnly)return alert('日勤専従のスタッフには夜勤希望を登録できません。');
+ if(t==='△'&&d<days()&&reqOf(s,d+1))return alert(`翌日（${d+1}日）は夜勤明けになるため、翌日の希望と両立しません。先に翌日の希望を解除してください。`);
+ if(d>1){const p=reqOf(s,d-1);if(p&&reqType(p)==='△')return alert(`前日（${d-1}日）に夜勤希望があるため、この日は夜勤明けになります。先に前日の希望を解除してください。`)}
+ state.wishes=state.wishes.filter(w=>!(w.s===s&&w.d===d));state.wishes.push({s,d,t});setCell(s,d,t,true)}
+function setCell(s,d,v,force){if(!force&&reqOf(s,d))return alert('希望が登録されています。勤務を変える場合は、先に「希望を解除」してください。');if(!force&&v==='△'&&d<days()&&reqOf(s,d+1))return alert('翌日に希望が登録されているため、夜勤は設定できません（翌日が夜勤明けになるため）。');if(!force&&d>1&&reqOf(s,d-1)&&reqType(reqOf(s,d-1))==='△'&&v!=='×')return alert('前日が夜勤希望のため、この日は夜勤明けです。');if(v==='△'&&staff[s].dayOnly)return alert('日勤専従のスタッフには夜勤を設定できません。');if(state.cells[dateKey(s,d)]==='×'&&d>1&&state.cells[dateKey(s,d-1)]==='△'){state.cells[dateKey(s,d-1)]='休'}if(state.cells[dateKey(s,d)]==='△'&&d<days())state.cells[dateKey(s,d+1)]='休';state.cells[dateKey(s,d)]=v;if(v==='△'&&d<days())state.cells[dateKey(s,d+1)]='×';if(d>1&&state.cells[dateKey(s,d-1)]==='△'&&v!=='×')state.cells[dateKey(s,d-1)]='休';save();render()}
 function validate(){
  // 検証（自動作成の処理とは別に書いた確認用のチェック）
  const out=[],D=days(),at=(s,d)=>state.cells[dateKey(s,d)],nm=s=>staff[s].name;
@@ -284,7 +320,7 @@ function validate(){
   if(state.offDays!=null){const o=row.filter(c=>c==='休').length;if(o!==state.offDays)out.push(`${nm(s)}：公休が${o}日です（指定${state.offDays}日）`)}
   const t=state.nightTargets&&state.nightTargets[s];if(t!=null&&t!==''){const n=row.filter(c=>c==='△').length;if(n!==+t)out.push(`${nm(s)}：夜勤が${n}回です（指定${t}回）`)}
  }
- for(const w of state.wishes)if(at(w.s,w.d)!=='休')out.push(`${w.d}日：${nm(w.s)}は希望休ですが「${at(w.s,w.d)}」です`);
+ for(const w of state.wishes)if(at(w.s,w.d)!==reqType(w))out.push(`${w.d}日：${nm(w.s)}は${reqLabel[reqType(w)]}ですが「${at(w.s,w.d)}」です`);
  for(let d=1;d<=D;d++){const day=[],night=[];for(let s=0;s<14;s++){if(at(s,d)==='日')day.push(s);if(at(s,d)==='△')night.push(s)}
   if(day.length<settings.dayMin)out.push(`${d}日：日勤が${day.length}名（最低${settings.dayMin}名）`);
   if(day.filter(s=>staff[s].driver).length<2)out.push(`${d}日：日勤ドライバーが2名未満`);
@@ -309,14 +345,14 @@ document.addEventListener('change',e=>{const id=e.target.id;
  if(id==='offDays'){const v=e.target.value.trim();state.offDays=v===''?null:Math.max(0,Math.min(days(),Math.floor(+v)));save();render()}
  if(id==='dayMin'||id==='nightMin'||id==='nightMax'){settings[id]=+e.target.value;saveSettings();render()}
 });
-function render(){const D=days();document.getElementById('monthTitle').textContent=`${year}年${month+1}月`;document.getElementById('monthStat').textContent=`${month+1}月`;let h='<thead><tr><th>スタッフ</th>';for(let d=1;d<=D;d++){let w=new Date(year,month,d).getDay();h+=`<th class="${w===0?'sun':w===6?'sat':''}">${d}<div class="tag">${'日月火水木金土'[w]}</div></th>`}h+='</tr></thead><tbody>';for(let s=0;s<14;s++){h+=`<tr><td>${staff[s].name}<div class="tag">${staff[s].dayOnly?'日勤専従':staff[s].junior?'夜勤指導中':staff[s].leader?'リーダー':''}</div></td>`;for(let d=1;d<=D;d++){const c=state.cells[dateKey(s,d)]||'休',wish=state.wishes.some(w=>w.s===s&&w.d===d);h+=`<td><button data-s="${s}" data-d="${d}" class="${({日:'d','△':'n','×':'a',休:'o',有:'p'})[c]} ${wish?'wish':''}" title="${staff[s].name} ${d}日：${c}${wish?'（希望休）':''}">${c}</button></td>`}h+='</tr>'}h+='</tbody>';document.getElementById('schedule').innerHTML=h;document.querySelectorAll('#schedule button').forEach(b=>b.onclick=()=>{edit={s:+b.dataset.s,d:+b.dataset.d};document.getElementById('editTitle').textContent=`${staff[edit.s].name}｜${month+1}月${edit.d}日`;document.getElementById('editDesc').textContent=`現在：${state.cells[dateKey(edit.s,edit.d)]} ${state.wishes.some(w=>w.s===edit.s&&w.d===edit.d)?'｜希望休のため変更不可':''}`;document.getElementById('editor').showModal()});const issues=validate();document.getElementById('issueStat').textContent=issues.length+' 件';document.getElementById('wishStat').textContent=state.wishes.length+' 件';document.getElementById('issues').innerHTML=issues.length?issues.slice(0,30).map(x=>`<div class="issue"><strong>要確認</strong>　${x}</div>`).join('')+(issues.length>30?`<p class="hint">ほか ${issues.length-30} 件あります</p>`:''):'<div class="good">✓ このデモで確認できる配置条件に違反はありません</div>';document.getElementById('wishStaff').innerHTML=staff.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');document.getElementById('wishDay').innerHTML=Array.from({length:D},(_,i)=>`<option value="${i+1}">${i+1}日</option>`).join('');document.getElementById('wishList').innerHTML=state.wishes.map((w,i)=>`<div class="issue">${staff[w.s].name}｜${w.d}日 <button style="float:right;padding:2px 7px" data-remove="${i}">解除</button></div>`).join('')||'<div class="hint">希望休の登録はありません</div>';document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{state.wishes.splice(+b.dataset.remove,1);save();render()});document.getElementById('staffList').innerHTML=staff.map(s=>`<div style="font-size:12px;padding:7px 0;border-bottom:1px solid #edf0f5"><b>${s.name}</b><div class="muted">${[s.leader?'リーダー':'',s.driver?'運転可':'',s.dayOnly?'日勤専従':'',s.junior?'指導対象':''].filter(Boolean).join(' · ')||'一般職員'}</div></div>`).join('');renderConditions()}
-document.querySelectorAll('#editor [data-code]').forEach(b=>b.onclick=()=>{setCell(edit.s,edit.d,b.dataset.code);document.getElementById('editor').close()});document.getElementById('close').onclick=()=>document.getElementById('editor').close();document.getElementById('addWish').onclick=()=>{const s=+document.getElementById('wishStaff').value,d=+document.getElementById('wishDay').value;if(!state.wishes.some(w=>w.s===s&&w.d===d))state.wishes.push({s,d});if(state.cells[dateKey(s,d)]==='△'&&d<days())state.cells[dateKey(s,d+1)]='休';if(d>1&&state.cells[dateKey(s,d-1)]==='△')state.cells[dateKey(s,d-1)]='休';state.cells[dateKey(s,d)]='休';save();render()};document.getElementById('prev').onclick=()=>{month--;if(month<0){month=11;year--}load()};document.getElementById('next').onclick=()=>{month++;if(month>11){month=0;year++}load()};document.getElementById('reset').onclick=()=>{if(confirm('この月の編集・希望休を初期化しますか？（作成条件は残ります）'))seed(true),render()};document.getElementById('generate').onclick=()=>{
+function render(){const D=days();document.getElementById('monthTitle').textContent=`${year}年${month+1}月`;document.getElementById('monthStat').textContent=`${month+1}月`;let h='<thead><tr><th>スタッフ</th>';for(let d=1;d<=D;d++){let w=new Date(year,month,d).getDay();h+=`<th class="${w===0?'sun':w===6?'sat':''}">${d}<div class="tag">${'日月火水木金土'[w]}</div></th>`}h+='</tr></thead><tbody>';for(let s=0;s<14;s++){h+=`<tr><td>${staff[s].name}<div class="tag">${staff[s].dayOnly?'日勤専従':staff[s].junior?'夜勤指導中':staff[s].leader?'リーダー':''}</div></td>`;for(let d=1;d<=D;d++){const c=state.cells[dateKey(s,d)]||'休',wr=reqOf(s,d),wish=!!wr;h+=`<td><button data-s="${s}" data-d="${d}" class="${({日:'d','△':'n','×':'a',休:'o',有:'p'})[c]} ${wish?'wish':''}" title="${staff[s].name} ${d}日：${c}${wish?'（'+reqLabel[reqType(wr)]+'）':''}">${c}</button></td>`}h+='</tr>'}h+='</tbody>';document.getElementById('schedule').innerHTML=h;document.querySelectorAll('#schedule button').forEach(b=>b.onclick=()=>{edit={s:+b.dataset.s,d:+b.dataset.d};document.getElementById('editTitle').textContent=`${staff[edit.s].name}｜${month+1}月${edit.d}日`;document.getElementById('editDesc').textContent=`現在：${state.cells[dateKey(edit.s,edit.d)]}${reqOf(edit.s,edit.d)?'｜'+reqLabel[reqType(reqOf(edit.s,edit.d))]+'（勤務を変える場合は先に希望を解除）':''}`;document.getElementById('editor').showModal()});const issues=validate();document.getElementById('issueStat').textContent=issues.length+' 件';document.getElementById('wishStat').textContent=state.wishes.length+' 件';document.getElementById('issues').innerHTML=issues.length?issues.slice(0,30).map(x=>`<div class="issue"><strong>要確認</strong>　${x}</div>`).join('')+(issues.length>30?`<p class="hint">ほか ${issues.length-30} 件あります</p>`:''):'<div class="good">✓ このデモで確認できる配置条件に違反はありません</div>';document.getElementById('wishStaff').innerHTML=staff.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');document.getElementById('wishDay').innerHTML=Array.from({length:D},(_,i)=>`<option value="${i+1}">${i+1}日</option>`).join('');document.getElementById('wishList').innerHTML=state.wishes.map((w,i)=>({w,i})).sort((a,b)=>a.w.d-b.w.d||a.w.s-b.w.s).map(({w,i})=>`<div class="issue">${w.d}日｜${staff[w.s].name}｜${reqLabel[reqType(w)]} <button style="float:right;padding:2px 7px" data-remove="${i}">解除</button></div>`).join('')||'<div class="hint">希望の登録はありません</div>';document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{state.wishes.splice(+b.dataset.remove,1);save();render()});document.getElementById('staffList').innerHTML=staff.map(s=>`<div style="font-size:12px;padding:7px 0;border-bottom:1px solid #edf0f5"><b>${s.name}</b><div class="muted">${[s.leader?'リーダー':'',s.driver?'運転可':'',s.dayOnly?'日勤専従':'',s.junior?'指導対象':''].filter(Boolean).join(' · ')||'一般職員'}</div></div>`).join('');renderConditions()}
+document.querySelectorAll('#editor [data-code]').forEach(b=>b.onclick=()=>{setCell(edit.s,edit.d,b.dataset.code);document.getElementById('editor').close()});document.getElementById('close').onclick=()=>document.getElementById('editor').close();document.querySelectorAll('#editor [data-req]').forEach(b=>b.onclick=()=>{applyRequest(edit.s,edit.d,b.dataset.req);document.getElementById('editor').close()});document.getElementById('clearReq').onclick=()=>{state.wishes=state.wishes.filter(w=>!(w.s===edit.s&&w.d===edit.d));save();render();document.getElementById('editor').close()};document.getElementById('addWish').onclick=()=>{const s=+document.getElementById('wishStaff').value,d=+document.getElementById('wishDay').value;applyRequest(s,d,document.getElementById('wishType').value)};document.getElementById('prev').onclick=()=>{month--;if(month<0){month=11;year--}load()};document.getElementById('next').onclick=()=>{month++;if(month>11){month=0;year++}load()};document.getElementById('reset').onclick=()=>{if(confirm('この月の編集・希望を初期化しますか？（作成条件は残ります）'))seed(true),render()};document.getElementById('generate').onclick=()=>{
  if(state.offDays==null){alert('「作成条件」に、この月の公休日数を入力してください。');document.getElementById('offDays').focus();return}
- if(!confirm(`${year}年${month+1}月の勤務表を自動作成します。\n現在の勤務は上書きされます（登録済みの希望休は守ります）。よろしいですか？`))return;
+ if(!confirm(`${year}年${month+1}月の勤務表を自動作成します。\n現在の勤務は上書きされます（登録済みの希望は守ります）。よろしいですか？`))return;
  const r=autoGenerate({staff,D:days(),wishes:state.wishes,conditions:{...settings,offDays:state.offDays,nightTargets:state.nightTargets}});
  if(!r.ok){
   const lines=r.conflicts.length?r.conflicts.slice(0,8).map(c=>c.d?`・${c.d}日：${c.reason}`:`・${c.reason}`):[r.stuckDay?`・${r.stuckDay.d}日以降の配置が見つかりませんでした（夜勤候補${r.stuckDay.night}名・うちリーダー${r.stuckDay.nightLeader}名・運転可${r.stuckDay.nightDriver}名／日勤候補${r.stuckDay.day}名・うちリーダー${r.stuckDay.dayLeader}名・運転可${r.stuckDay.dayDriver}名）`:'・時間内に配置が見つかりませんでした'];
-  alert(`条件をすべて満たす勤務表を作成できませんでした。勤務表は変更していません。\n\n${lines.join('\n')}${r.conflicts.length>8?`\nほか${r.conflicts.length-8}件`:''}\n\n作成条件（公休日数・最低人数・夜勤回数）や希望休の重なりを見直してください。`);return}
+  alert(`条件をすべて満たす勤務表を作成できませんでした。勤務表は変更していません。\n\n${lines.join('\n')}${r.conflicts.length>8?`\nほか${r.conflicts.length-8}件`:''}\n\n作成条件（公休日数・最低人数・夜勤回数）や希望の重なりを見直してください。`);return}
  state={...state,cells:r.cells};save();render();
  const issues=validate();
  alert(issues.length?`勤務表を作成しましたが、検証で${issues.length}件の注意点があります。画面下の検証結果を確認してください。`:'条件をすべて満たす勤務表を作成しました（検証結果：注意点0件）。');

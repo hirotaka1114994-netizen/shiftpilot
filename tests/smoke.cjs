@@ -71,6 +71,13 @@ const server = http.createServer((req, res) => {
     await page.click('details summary');
     await page.selectOption('[data-nt="11"]', '4'); await page.selectOption('[data-nt="12"]', '4');
     check('作成条件を入力できる（公休9日・新人の夜勤4回）', (await page.inputValue('#offDays')) === '9' && (await page.inputValue('[data-nt="11"]')) === '4');
+    // マスから希望を登録（スタッフB 20日：日勤希望、スタッフC 12日：夜勤希望）
+    await page.click('#schedule button[data-s="1"][data-d="20"]');
+    await page.click('#editor [data-req="日"]');
+    await page.click('#schedule button[data-s="2"][data-d="12"]');
+    await page.click('#editor [data-req="△"]');
+    const reqCell = page.locator('#schedule button[data-s="2"][data-d="12"]');
+    check('マスから勤務の希望を登録できる', (await reqCell.textContent()).trim() === '△' && (await reqCell.getAttribute('class')).includes('wish'));
     // 自動作成（希望休を1件登録してから実行し、希望休が守られることも確認）
     await page.selectOption('#wishStaff', '0');
     await page.selectOption('#wishDay', '10');
@@ -82,7 +89,7 @@ const server = http.createServer((req, res) => {
     const issues = (await page.textContent('#issueStat')).trim();
     check('自動作成ボタンで、検証の注意点0件の勤務表ができる', issues === '0 件', `注意点 ${issues}／${msgs[msgs.length - 1] || ''}`);
     const kept = page.locator('#schedule button[data-s="0"][data-d="10"]');
-    check('自動作成後も希望休が守られる', (await kept.textContent()).trim() === '休' && (await page.textContent('#wishStat')).trim() === '1 件');
+    check('自動作成後も希望（休み・日勤・夜勤）が守られる', (await kept.textContent()).trim() === '休' && (await page.textContent('#schedule button[data-s="1"][data-d="20"]')).trim() === '日' && (await reqCell.textContent()).trim() === '△' && (await page.textContent('#wishStat')).trim() === '3 件');
     page.removeAllListeners('dialog');
     page.on('dialog', d => (d.type() === 'confirm' ? d.accept() : d.dismiss()));
     // 月末日にも夜勤を入れられる（2026-11-09 確定）

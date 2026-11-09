@@ -51,15 +51,25 @@ function randomWishes(n, D, seed, perStaffMax = 3) {
           cases.push({ y, m, offDays, nW, nightTargets, dayMin: 4, nightMin: 2, nightMax: 3 });
   cases.push({ y: 2026, m: 10, offDays: 8, nW: 10, nightTargets: { 11: 4, 12: 4 }, dayMin: 4, nightMin: 3, nightMax: 3 }); // 夜勤3名体制（公休9日では人数不足のため8日）
   cases.push({ y: 2026, m: 10, offDays: 8, nW: 10, nightTargets: {}, dayMin: 5, nightMin: 2, nightMax: 3 });               // 日勤5名
+  // 勤務の希望（日勤希望・夜勤希望）も混ぜたケース
+  for (const seed of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) cases.push({ y: 2026, m: 10, offDays: 9, nW: 12, nightTargets: { 11: 4, 12: 4 }, dayMin: 4, nightMin: 2, nightMax: 3, workReq: seed });
   let okCount = 0; const fail = [], times = [], spread = []; let consecAll = 0, restedAll = 0, generated = null;
   for (const [i, c] of cases.entries()) {
     const D = new Date(c.y, c.m + 1, 0).getDate();
     const wishes = randomWishes(c.nW, D, 1000 + i);
+    if (c.workReq) { // 休み希望の一部を、日勤希望・夜勤希望に変える（夜勤希望は日勤専従以外、前後の希望と重ならないもの）
+      const r = rng(c.workReq * 31);
+      for (const w of wishes) {
+        const x = r();
+        const near = wishes.some(o => o !== w && o.s === w.s && Math.abs(o.d - w.d) <= 2);
+        if (x < 0.25) w.t = '日'; else if (x < 0.45 && !staff[w.s].dayOnly && !near && w.d < D) w.t = '△';
+      }
+    }
     const cond = { dayMin: c.dayMin, nightMin: c.nightMin, nightMax: c.nightMax, offDays: c.offDays, nightTargets: c.nightTargets };
     const t = Date.now();
     const r = await gen({ D, wishes, conditions: cond, seed: i + 1 });
     times.push(Date.now() - t);
-    const label = `${c.y}年${c.m + 1}月・公休${c.offDays}・日勤${c.dayMin}・夜勤${c.nightMin}〜${c.nightMax}・夜勤指定${JSON.stringify(c.nightTargets)}・希望休${c.nW}`;
+    const label = `${c.workReq ? '勤務希望あり・' : ''}${c.y}年${c.m + 1}月・公休${c.offDays}・日勤${c.dayMin}・夜勤${c.nightMin}〜${c.nightMax}・夜勤指定${JSON.stringify(c.nightTargets)}・希望休${c.nW}`;
     if (!r.ok) { fail.push(`${label}：作成できず ${JSON.stringify(r.conflicts.length ? r.conflicts.slice(0, 2) : r.stuckDay)}`); continue; }
     const v = checkSchedule({ staff, D, cells: r.cells, wishes, conditions: cond });
     const iss = await appValidate(c.y, c.m, r.cells, wishes, cond);
@@ -113,8 +123,10 @@ function randomWishes(n, D, seed, perStaffMax = 3) {
   };
   await tryFail('人数が足りない（夜勤3名体制・公休9日：延べ3日不足）', { conditions: { nightMin: 3 } }, /3日足りません/);
   await tryFail('人数が足りない（日勤5・夜勤3・公休9日）', { conditions: { dayMin: 5, nightMin: 3 } }, /延べ.*足りません/);
-  await tryFail('希望休が公休日数を超える', { wishes: Array.from({ length: 10 }, (_, i) => ({ s: 0, d: i + 1 })) }, /希望休10日が、公休日数9日を超え/);
+  await tryFail('希望休が公休日数を超える', { wishes: Array.from({ length: 10 }, (_, i) => ({ s: 0, d: i + 1 })) }, /休み希望10日が、公休日数9日を超え/);
   await tryFail('希望休の集中（10日に9名）', { wishes: Array.from({ length: 9 }, (_, s) => ({ s, d: 10 })) }, /10日：/);
+  await tryFail('夜勤希望の翌日に別の希望', { wishes: [{ s: 0, d: 5, t: '△' }, { s: 0, d: 6, t: '日' }] }, /明けになるため、翌日の希望と両立しません/);
+  await tryFail('夜勤希望が上限人数を超える', { wishes: [0, 1, 2, 3].map(s => ({ s, d: 7, t: '△' })) }, /夜勤希望が4名/);
   await tryFail('夜勤の最低人数が上限を超える', { conditions: { nightMin: 4, nightMax: 3 } }, /最低人数4名が、夜勤の上限3名を超え/);
   await tryFail('夜勤回数の指定が多すぎる', { conditions: { nightTargets: { 0: 12 } } }, /夜勤12回/);
 
