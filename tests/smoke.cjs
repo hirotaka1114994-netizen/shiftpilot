@@ -66,6 +66,11 @@ const server = http.createServer((req, res) => {
     await page.click('[data-remove="0"]');
     check('希望休を解除できる', (await page.textContent('#wishStat')).trim() === '0 件');
 
+    // 作成条件：公休日数を入力し、新人2名の夜勤を4回に指定
+    await page.fill('#offDays', '9'); await page.dispatchEvent('#offDays', 'change');
+    await page.click('details summary');
+    await page.selectOption('[data-nt="11"]', '4'); await page.selectOption('[data-nt="12"]', '4');
+    check('作成条件を入力できる（公休9日・新人の夜勤4回）', (await page.inputValue('#offDays')) === '9' && (await page.inputValue('[data-nt="11"]')) === '4');
     // 自動作成（希望休を1件登録してから実行し、希望休が守られることも確認）
     await page.selectOption('#wishStaff', '0');
     await page.selectOption('#wishDay', '10');
@@ -84,6 +89,7 @@ const server = http.createServer((req, res) => {
     await page.click('#schedule button[data-s="1"][data-d="30"]');
     await page.click('#editor [data-code="△"]');
     check('月末日に夜勤を設定できる', (await page.textContent('#schedule button[data-s="1"][data-d="30"]')).trim() === '△');
+    await page.screenshot({ path: path.join(SHOTS, 'desktop-generated.png'), fullPage: false });
     await page.screenshot({ path: path.join(SHOTS, 'desktop.png'), fullPage: true });
 
     // CSV書き出し
@@ -110,6 +116,8 @@ const server = http.createServer((req, res) => {
     const mctx = await browser.newContext({ ...devices['iPhone 13'] });
     const m = await mctx.newPage();
     await m.goto(url);
+    await m.locator('#offDays').scrollIntoViewIfNeeded();
+    await m.screenshot({ path: path.join(SHOTS, 'phone-conditions.png') });
     // 端末の画面幅（390px）とページ全体の幅を比べる。window.innerWidth はページに合わせて広がるため使わない。
     const screenW = m.viewportSize().width;
     const pageW = await m.evaluate(() => document.documentElement.scrollWidth);
