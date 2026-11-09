@@ -91,9 +91,11 @@ const server = http.createServer((req, res) => {
     const csv = fs.readFileSync(await dl.path(), 'utf8');
     check('CSVを書き出せる', dl.suggestedFilename() === 'shiftpilot_2026_11.csv' && csv.split('\r\n').length === 15, dl.suggestedFilename());
 
-    // 再読み込み後も端末内保存が残る
+    // 再読み込み後も端末内保存が残る（勤務表全体と希望休を、再読み込みの前後で比べる）
+    const snapshot = () => page.evaluate(() => JSON.stringify({ c: [...document.querySelectorAll('#schedule tbody button')].map(b => b.textContent + b.className), w: document.querySelector('#wishStat').textContent }));
+    const beforeReload = await snapshot();
     await page.reload();
-    check('再読み込み後も内容が保持される', (await page.textContent('#issueStat')).trim() === issues);
+    check('再読み込み後も内容が保持される', (await snapshot()) === beforeReload);
 
     // 月の移動
     await page.click('#next');
