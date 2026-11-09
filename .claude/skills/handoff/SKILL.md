@@ -6,7 +6,7 @@ description: ShiftPilot の作業の区切り・終了時の引き継ぎ手順�
 # 引き継ぎ（作業終了時）
 
 ## 手順
-1. **動作確認**：`node tests/smoke.cjs` を実行し、結果（○/○項目OK、NG項目）を控える。
+1. **動作確認**：`node tests/smoke.cjs` と `node tests/generate.cjs` を実行し、結果（○/○項目OK、NG項目）を控える。
    - 既知のNG（`docs/progress.md` の「既知の問題」）と、新しく増えたNGを区別する。
 2. **変更点の確認**：`git status` と `git diff --stat` で、今回変えたファイルを把握する。
 3. **`docs/progress.md` を更新**：

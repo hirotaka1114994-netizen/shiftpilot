@@ -66,10 +66,24 @@ const server = http.createServer((req, res) => {
     await page.click('[data-remove="0"]');
     check('希望休を解除できる', (await page.textContent('#wishStat')).trim() === '0 件');
 
-    // 最適化済みサンプルの読み込み
+    // 自動作成（希望休を1件登録してから実行し、希望休が守られることも確認）
+    await page.selectOption('#wishStaff', '0');
+    await page.selectOption('#wishDay', '10');
+    await page.click('#addWish');
+    const msgs = [];
+    page.removeAllListeners('dialog');
+    page.on('dialog', d => { msgs.push(d.message()); d.type() === 'confirm' ? d.accept() : d.dismiss(); });
     await page.click('#generate');
     const issues = (await page.textContent('#issueStat')).trim();
-    check('最適化済みサンプルを読み込める', /件$/.test(issues), `注意点 ${issues}`);
+    check('自動作成ボタンで、検証の注意点0件の勤務表ができる', issues === '0 件', `注意点 ${issues}／${msgs[msgs.length - 1] || ''}`);
+    const kept = page.locator('#schedule button[data-s="0"][data-d="10"]');
+    check('自動作成後も希望休が守られる', (await kept.textContent()).trim() === '休' && (await page.textContent('#wishStat')).trim() === '1 件');
+    page.removeAllListeners('dialog');
+    page.on('dialog', d => (d.type() === 'confirm' ? d.accept() : d.dismiss()));
+    // 月末日にも夜勤を入れられる（2026-11-09 確定）
+    await page.click('#schedule button[data-s="1"][data-d="30"]');
+    await page.click('#editor [data-code="△"]');
+    check('月末日に夜勤を設定できる', (await page.textContent('#schedule button[data-s="1"][data-d="30"]')).trim() === '△');
     await page.screenshot({ path: path.join(SHOTS, 'desktop.png'), fullPage: true });
 
     // CSV書き出し
